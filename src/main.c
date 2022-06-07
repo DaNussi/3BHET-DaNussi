@@ -3,11 +3,6 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
-
-
-volatile unsigned int speed = 0;		//Blink Geschwindigkeit geht von 0 bis 5
-volatile unsigned int counter = 0;		//Zählt wie oft der Timer einen Interrupt auslöst. Resetet bei >= 50
-
  
 /*-------------------------------------------
  * Interruptvektoren
@@ -17,11 +12,7 @@ ISR(INT0_vect) { }
 // External Interrupt Request 1   	_VECTOR(2)
 ISR(INT1_vect) { }
 // External Interrupt Request 1   	_VECTOR(3)
-ISR(INT2_vect) {				//Dieser Interrupt wird ausgelöst wenn der Knopf gedrückt wurde
-	speed++;					//Erhöhen der Geschwindigkeit
-	if(speed >= 5) speed = 0;	//Limitiren/Zurücksetzen der Geschwindikeit
-	OCR0A = 54*speed;			//Setzen der OCR0A Registers mit hilfe der Geschwindikeit
-}
+ISR(INT2_vect) { }
 // External Interrupt Request 1   	_VECTOR(4)
 ISR(INT3_vect) { }
 // External Interrupt Request 1   	_VECTOR(5)
@@ -52,14 +43,8 @@ ISR(EE_READY_vect) { }
 ISR(TWI_vect) { }
 // Store Program Memory Read        _VECTOR(40)
 ISR (SPM_READY_vect) { }
-
-ISR(TIMER0_COMPA_vect) {
-	counter++;				//Zähler um eins erhöhen
-	if(counter >= 50) {
-		PORTB ^= 1<<5;		//Toggeln von PB5
-		counter = 0;		//Zurücksetzen des Zählers
-	}
-}
+// Timer0 Compare A  				_VECTOR(21)
+ISR(TIMER0_COMPA_vect) { }
 // Timer0 Compare B  				_VECTOR(22)
 ISR(TIMER0_COMPB_vect) { }
 // Timer0 Overflow  				_VECTOR(23)
@@ -140,20 +125,7 @@ ISR(USART3_TX_vect) { }
 int main() 
 {
 
-	DDRB = 1<<5;
 
-	EICRA = 1 << ISC01| 1<< ISC00;
-	EIMSK = 1 << INT2;
-
-
-	OCR0A = 0xff;
-	TCCR0A = 1<<WGM01;
-	TCCR0B = 1<< CS02 | 1<<CS00;
-	TIMSK0 = 1<<OCIE0A | 1<<OCIE0A | 1<<TOIE0;
-
-
-	sei();
 
 	while(1) { };
-
 }
