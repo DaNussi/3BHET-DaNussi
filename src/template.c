@@ -121,63 +121,11 @@ ISR(USART3_UDRE_vect) { }
 ISR(USART3_TX_vect) { }
 
 
-void setZahl(int nr) {
-	unsigned char e = (nr%10);
-	unsigned char z = (nr/10) % 10;
-	unsigned char h = (nr/100) % 10;
-	unsigned char t = (nr/1000) % 10;
-
-	PORTC = z<<4 | e;
-	PORTA ^= 1<<1;
-	PORTA ^= 1<<1;
-	PORTA |= 1<<1;
-	PORTA &= ~(1<<1);
-
-	PORTC = t<<4 | h;
-	PORTA |= 1<<0;
-	PORTA &= ~(1<<0);
-}
-
-
-
 
 int main() 
-{   
-	
-	DDRA = 0x03;
-	PORTA = 1<<7;
-	DDRC = 0xFF;
-	PORTC = 0;
-	setZahl(0);
-
-    unsigned char layout [4][4] = {'C',0,'=','+',1,2,3,'-',4,5,6,'*',7,8,9,'%'};
+{
 
 
-    //Port B 4-7 Output
-    DDRB |= (1<<4) | (1<<5) | (1<<6) | (1<<7);
-    PORTB = 0xFF;
 
-    DDRC = 0xFF;
-	DDRA = 0xFF;
-	DDRD = 0x00;
-
-	while(1) {
-
-        for (int row = 0; row != 4; row++)
-        {   
-            PORTB = 0xFF & ~(1<<(row+4));
-
-            for ( int col = 0; col < 4; col++)
-            {
-                if (!(PINB & (1<<col)))
-                {
-                    unsigned char zahl = layout[row][col];
-                    setZahl(zahl);
-                    
-                }
-                
-            }   
-        }
-	}
-
+	while(1) { };
 }

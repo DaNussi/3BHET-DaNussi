@@ -151,6 +151,8 @@ int main()
 	TCCR0B = 1<< CS02 | 1<<CS00;
 	TIMSK0 = 1<<OCIE0A | 1<<OCIE0A | 1<<TOIE0;
 
+	
+	
 
 	sei();
 

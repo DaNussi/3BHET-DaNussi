@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "3BHET-DaNussi",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"delay.h": "c"
+		}
+	}
+}
