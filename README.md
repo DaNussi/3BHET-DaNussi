@@ -14,7 +14,7 @@ Ois wos ma braucht.
 
 
 ## Contributing
-Da Maxi und da Gigaton.
+Da Maxi und da Gigaton und da blade Juli.
 
 ## License
 [NutzpflanzenGmbH](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
